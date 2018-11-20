@@ -32,27 +32,69 @@
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
 
+    const filtered = inventors.filter((inventor) => {
+    	return inventor.year >= 1500 && inventor.year < 1600;
+    })
+    console.table(filtered);
+
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+
+    const names = inventors.map((inventor) => {
+    	return inventor.first + ' ' + inventor.last;
+    })
+    console.table(names);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
 
+    const inventorsCopy = inventors.slice();
+    const birthdate = inventorsCopy.sort((first, second) => {
+    	return second.year - first.year;
+    })
+    console.table(birthdate);
+
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
 
+    const years = inventors.reduce((accum, inventor) => {
+    	return accum + (inventor.passed - inventor.year);
+    }, 0)
+    console.log(years);
+
     // 5. Sort the inventors by years lived
 
-    // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
-    // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+    const inventorsCopy2 = inventors.slice();
+    const lived = inventorsCopy2.sort((first, second) => {
+    	return (first.passed - first.year) - (second.passed - second.year);
+    })
+    console.table(lived);
 
-
-    // 7. sort Exercise
+    // 6. sort Exercise
     // Sort the people alphabetically by last name
+    const lastNames = people.map((elem) => {
+    	return elem.split(', ');
+    })
+    const sortedLastNames = lastNames.sort((first, second) => {
+    	if (first[0] > second[0]) {
+    		return 1;
+    	} else {
+    		return -1;
+    	}
+    })
+    console.table(sortedLastNames);
 
-    // 8. Reduce Exercise
+    // 7. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const counter = data.reduce((obj, elem) => {
+    	if(!obj[elem]) {
+    		obj[elem] = 0;
+    	}
+    	obj[elem]++
+    	return obj;
+    }, {})
+    console.table(counter);
 
   </script>
 </body>
