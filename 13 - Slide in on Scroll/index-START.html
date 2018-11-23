@@ -58,6 +58,23 @@
       };
     }
 
+    function slide (e) {
+      images.forEach(img => {
+        const slideAt = (window.scrollY + window.innerHeight) - img.height / 2;
+        const bottom = img.offsetTop + img.height;
+        const isHalfShow = slideAt > img.offsetTop;
+        const isNotScrolled = bottom > window.scrollY;
+        if (isNotScrolled && isHalfShow) {
+          img.classList.add('active');
+        } else {
+          img.classList.remove('active');
+        }
+      })
+    }
+
+    const images = document.querySelectorAll('.slide-in');
+    window.addEventListener('scroll', slide);
+
   </script>
 
   <style>
