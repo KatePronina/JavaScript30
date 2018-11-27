@@ -87,7 +87,7 @@
     <li data-time="3:34">
       Video 27
     </li>
-    <li data-time="8:22">
+    <li data-time="8:25">
       Video 28
     </li>
     <li data-time="5:17">
@@ -182,6 +182,28 @@
     </li>
   </ul>
 <script>
+const items = [...document.querySelectorAll('li')];
+
+const seconds = items
+  .map(item => item.dataset.time)
+  .map(time => {
+    const [mins, secs] = time.split(':').map(parseFloat);
+    return (mins * 60) +secs;
+  })
+  .reduce((total, current) => {
+    return total + current;
+  })
+
+let secondsLeft = seconds;
+
+const hours = Math.floor(secondsLeft / 3600);
+secondsLeft = secondsLeft % 3600;
+
+const mins = Math.floor(secondsLeft / 60);
+secondsLeft = secondsLeft % 60;
+
+console.log(hours, mins, secondsLeft);
+
 </script>
 </body>
 </html>
