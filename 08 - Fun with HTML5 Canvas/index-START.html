@@ -5,10 +5,14 @@
   <title>HTML5 Canvas</title>
 </head>
 <body>
+<button class="download" type="button">Download</button>
+<button class="clear" type="button">Clear</button>
 <canvas id="draw" width="800" height="800"></canvas>
 <script>
 	const canvas = document.querySelector('#draw');
 	const ctx = canvas.getContext('2d');
+	const download = document.querySelector('.download');
+	const clear = document.querySelector('.clear');
 
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
@@ -16,6 +20,8 @@
 	ctx.strokeStyle = '#BADA55';
 	ctx.lineJoin = 'round';
 	ctx.lineCap = 'round';
+	canvas.getContext('2d').fillStyle = '#ffffff';
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 	let isDrawing = false;
 	let lastX = 0;
@@ -60,6 +66,26 @@
 	canvas.addEventListener('mouseover', (e) => {
 		isDrawing = false;
 	})
+
+	function downloadHandler () {
+		const data = canvas.toDataURL('image/jpeg');
+		console.log(data);
+		const link = document.createElement('a');
+		link.setAttribute("href", data);
+    	link.setAttribute("download", "canvasImage");
+    	link.click();
+	}
+
+	function clearCanvas () {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		canvas.getContext('2d').fillStyle = '#ffffff';
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+	}
+
+	download.addEventListener('click', downloadHandler);
+	clear.addEventListener('click', clearCanvas);
+
+
 
 </script>
 
