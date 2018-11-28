@@ -25,8 +25,29 @@
       <p>Aliquam <a href="">dicta</a> sequi culpa fugiat <a href="">consequuntur</a> pariatur optio ad minima, maxime <a href="">odio</a>, distinctio magni impedit tempore enim repellendus <a href="">repudiandae</a> quas!</p>
     </div>
 
+    <span class="highlight"></span>
+
   <script>
-    // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
+    const links = document.querySelectorAll('a');
+    const highlight = document.querySelector('.highlight');
+
+    function highlightMove (e) {
+      const coords = e.target.getBoundingClientRect();
+      const scrolled = window.scrollY;
+
+      const width = coords.width;
+      const height = coords.height;
+      const left = coords.left;
+      const top = coords.top + scrollY;
+
+      console.log(width, height);
+
+      highlight.style.width = `${width}px`;
+      highlight.style.height = `${height}px`;
+      highlight.style.transform = `translate(${left}px, ${top}px)`;
+    }
+
+    links.forEach(link => link.addEventListener('mouseenter', highlightMove));
   </script>
 </body>
 </html>
