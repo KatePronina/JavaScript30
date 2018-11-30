@@ -9,7 +9,7 @@
 <body>
 
   <h1>Whack-a-mole! <span class="score">0</span></h1>
-  <button onClick="startGame()">Start!</button>
+  <button onClick="game()">Start!</button>
 
   <div class="game">
     <div class="hole hole1">
@@ -36,7 +36,55 @@
   const holes = document.querySelectorAll('.hole');
   const scoreBoard = document.querySelector('.score');
   const moles = document.querySelectorAll('.mole');
+  let lastHole;
+  let finished = false;
+  let score = 0;
 
+  function getRandomHole (holes) {
+    const holeId = Math.floor(Math.random() * holes.length);
+    if (lastHole === holes[holeId]) {
+      return getRandomHole(holes);
+    }
+    lastHole = holes[holeId];
+    return holes[holeId];
+  }
+
+  function getRandomTime (max, min) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function play () {
+      if (finished) return;
+
+      const hole = getRandomHole(holes);
+      const time = getRandomTime (500, 1000);
+
+      hole.classList.add('up');
+      setTimeout(() => {
+        hole.classList.remove('up');
+        play();
+      }, time)
+  }
+
+  function game () {
+    scoreBoard.textContent = 0;
+    score = 0;
+    finished = false;
+    play();
+    setTimeout(() => {
+      finished = true;
+    }, 10000)
+  }
+
+  function catchMole (e) {
+    score++;
+    scoreBoard.textContent = score;
+    e.target.parentNode.classList.remove('up');
+  }
+
+  moles.forEach(mole => {
+    mole.addEventListener('click', catchMole);
+  });
 </script>
 </body>
 </html>
